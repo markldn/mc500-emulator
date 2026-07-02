@@ -1,0 +1,955 @@
+/* Roland MC-500 MkII Emulator Styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.emulator-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ========== MC-500 Main Unit ========== */
+.mc500-unit {
+    background: linear-gradient(180deg, #3a3a4a 0%, #2a2a38 50%, #252530 100%);
+    border-radius: 12px;
+    padding: 20px 25px;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.1),
+        inset 0 -1px 0 rgba(0,0,0,0.3);
+    min-width: 750px;
+    border: 1px solid #4a4a5a;
+}
+
+/* Top Section */
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #1a1a25;
+}
+
+.brand-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.roland-logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #e74c3c;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.model-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.model-type {
+    font-size: 9px;
+    color: #888;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.model-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+/* Display Area */
+.display-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.lcd-module {
+    background: #0a0a0a;
+    border-radius: 6px;
+    padding: 3px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.lcd-bezel {
+    background: #1a3520;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.lcd-screen {
+    background: linear-gradient(180deg, #2a5a30 0%, #1e4a25 100%);
+    padding: 10px 14px;
+    border-radius: 3px;
+    min-width: 260px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.lcd-line {
+    font-family: 'Courier New', 'Lucida Console', monospace;
+    font-size: 18px;
+    color: #7fff7f;
+    text-shadow: 0 0 8px rgba(127,255,127,0.6);
+    letter-spacing: 1px;
+    height: 22px;
+    line-height: 22px;
+    white-space: pre;
+}
+
+/* LED Indicators */
+.led-section {
+    display: flex;
+    gap: 12px;
+}
+
+.led-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.led-indicator span {
+    font-size: 8px;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+.led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #222;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    transition: all 0.1s;
+}
+
+.led-red.active {
+    background: radial-gradient(circle at 30% 30%, #ff6666, #cc0000);
+    box-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
+}
+
+.led-yellow.active {
+    background: radial-gradient(circle at 30% 30%, #ffee66, #cc9900);
+    box-shadow: 0 0 8px #ffcc00, 0 0 16px #ffcc00;
+}
+
+.led-green.active {
+    background: radial-gradient(circle at 30% 30%, #66ff66, #00cc00);
+    box-shadow: 0 0 8px #00ff00, 0 0 16px #00ff00;
+    animation: pulse 0.3s ease-out;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 4px #00ff00; }
+    50% { box-shadow: 0 0 12px #00ff00, 0 0 24px #00ff00; }
+    100% { box-shadow: 0 0 8px #00ff00, 0 0 16px #00ff00; }
+}
+
+/* ========== Control Surface ========== */
+.control-surface {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.section-label {
+    font-size: 8px;
+    color: #666;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+/* Panel Buttons Base */
+.panel-btn {
+    background: linear-gradient(180deg, #5a5a6a 0%, #3a3a4a 50%, #2a2a3a 100%);
+    border: 1px solid #1a1a25;
+    border-radius: 4px;
+    color: #ddd;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.08s;
+    box-shadow:
+        0 3px 6px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.15);
+    user-select: none;
+}
+
+.panel-btn:hover {
+    background: linear-gradient(180deg, #6a6a7a 0%, #4a4a5a 50%, #3a3a4a 100%);
+}
+
+.panel-btn:active,
+.panel-btn.active {
+    background: linear-gradient(180deg, #2a2a3a 0%, #3a3a4a 50%, #4a4a5a 100%);
+    box-shadow:
+        0 1px 2px rgba(0,0,0,0.4),
+        inset 0 2px 4px rgba(0,0,0,0.3);
+    transform: translateY(1px);
+}
+
+/* Track Section */
+.track-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.track-btn {
+    width: 50px;
+    height: 40px;
+    font-size: 14px;
+}
+
+.track-btn .btn-number {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.rhythm-btn {
+    height: 35px;
+}
+
+.rhythm-btn .btn-label {
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+/* Center Section */
+.center-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+/* Transport Section */
+.transport-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.transport-btn {
+    width: 58px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px;
+}
+
+.transport-btn .btn-icon {
+    font-size: 16px;
+}
+
+.transport-btn .btn-label {
+    font-size: 7px;
+    letter-spacing: 0.5px;
+}
+
+.rec-btn {
+    background: linear-gradient(180deg, #8a4a4a 0%, #6a2a2a 50%, #5a1a1a 100%);
+}
+
+.rec-btn:hover {
+    background: linear-gradient(180deg, #9a5a5a 0%, #7a3a3a 50%, #6a2a2a 100%);
+}
+
+.rec-btn .btn-icon {
+    color: #ff6666;
+}
+
+.play-btn {
+    background: linear-gradient(180deg, #4a6a4a 0%, #2a4a2a 50%, #1a3a1a 100%);
+}
+
+.play-btn:hover {
+    background: linear-gradient(180deg, #5a7a5a 0%, #3a5a3a 50%, #2a4a2a 100%);
+}
+
+.play-btn .btn-icon {
+    color: #66ff66;
+}
+
+/* Function Section */
+.function-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.func-btn {
+    padding: 8px 10px;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    min-width: 60px;
+}
+
+.shift-btn {
+    background: linear-gradient(180deg, #5a5a7a 0%, #3a3a5a 50%, #2a2a4a 100%);
+}
+
+/* Cursor Section */
+.cursor-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.cursor-btn {
+    width: 45px;
+    height: 35px;
+    font-size: 16px;
+}
+
+/* Right Section */
+.right-section {
+    display: flex;
+    gap: 15px;
+}
+
+/* Keypad */
+.keypad-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.keypad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+    gap: 5px;
+}
+
+.num-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.zero-btn {
+    grid-column: span 1;
+}
+
+.enter-btn {
+    grid-column: span 2;
+    width: auto;
+    height: 40px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #4a5a6a 0%, #2a3a4a 50%, #1a2a3a 100%);
+}
+
+/* Alpha Dial */
+.dial-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alpha-dial {
+    cursor: grab;
+}
+
+.alpha-dial:active {
+    cursor: grabbing;
+}
+
+.dial-outer {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(145deg, #2a2a35, #1a1a25);
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.dial-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, #4a4a55, #35353f);
+    border-radius: 50%;
+    position: relative;
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: transform 0.05s;
+}
+
+.dial-marker {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 10px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(255,255,255,0.5);
+}
+
+.dial-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Bottom Section */
+.bottom-section {
+    padding-top: 12px;
+    border-top: 1px solid #1a1a25;
+    margin-top: 10px;
+}
+
+.disk-drive {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.drive-slot {
+    width: 100px;
+    height: 8px;
+    background: #1a1a20;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.drive-label {
+    font-size: 9px;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+.drive-led {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #222;
+}
+
+.drive-led.active {
+    background: #ff8800;
+    box-shadow: 0 0 6px #ff8800;
+}
+
+/* ========== Side Panel ========== */
+.side-panel {
+    background: #252535;
+    border-radius: 10px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.side-panel h3 {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.side-panel h4 {
+    color: #888;
+    font-size: 11px;
+    margin: 15px 0 8px 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Config Section */
+.config-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.config-group label {
+    font-size: 11px;
+    color: #888;
+}
+
+.config-group select {
+    background: #1a1a25;
+    border: 1px solid #3a3a4a;
+    border-radius: 4px;
+    color: #fff;
+    padding: 6px 8px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.config-group select:focus {
+    outline: none;
+    border-color: #e74c3c;
+}
+
+/* Emulator Controls */
+.emu-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.emu-btn {
+    background: #3a4a5a;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    padding: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.emu-btn:hover:not(:disabled) {
+    background: #4a5a6a;
+}
+
+.emu-btn:disabled {
+    background: #2a2a35;
+    color: #555;
+    cursor: not-allowed;
+}
+
+.emu-btn-start {
+    background: #2a5a3a;
+}
+
+.emu-btn-start:hover:not(:disabled) {
+    background: #3a6a4a;
+}
+
+.emu-btn-stop {
+    background: #5a3a3a;
+}
+
+.emu-btn-stop:hover:not(:disabled) {
+    background: #6a4a4a;
+}
+
+/* Status Display */
+.status-display {
+    background: #1a1a25;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #252535;
+    font-size: 11px;
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-label {
+    color: #666;
+}
+
+.status-value {
+    color: #7fff7f;
+}
+
+.status-value.mono {
+    font-family: 'Courier New', monospace;
+}
+
+/* Debug Section */
+.debug-section {
+    margin-bottom: 15px;
+}
+
+.debug-log {
+    background: #0a0a12;
+    border-radius: 4px;
+    padding: 8px;
+    height: 150px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.debug-log > div {
+    padding: 2px 0;
+}
+
+.debug-log .info {
+    color: #6cf;
+}
+
+.debug-log .error {
+    color: #f66;
+}
+
+.debug-log .warn {
+    color: #fc6;
+}
+
+/* Keyboard Help */
+.keyboard-help {
+    background: #1a1a25;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.shortcut {
+    font-size: 10px;
+    color: #888;
+    padding: 2px 0;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 1100px) {
+    .emulator-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .side-panel {
+        width: 100%;
+        max-width: 750px;
+    }
+
+    .mc500-unit {
+        min-width: auto;
+        width: 100%;
+        max-width: 750px;
+    }
+}
+
+@media (max-width: 600px) {
+    .control-surface {
+        flex-wrap: wrap;
+    }
+
+    .transport-buttons {
+        flex-wrap: wrap;
+    }
+
+    .function-buttons {
+        justify-content: center;
+    }
+}
+
+/* ========== Shared LED-on state (latch driven) ========== */
+.led.led-on {
+    background: radial-gradient(circle at 30% 30%, #ff6666, #cc0000);
+    box-shadow: 0 0 8px #ff2200, 0 0 14px #ff2200;
+}
+
+/* Small LEDs embedded in MkII track buttons */
+.mk2-track-led {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 6px;
+    height: 6px;
+}
+.track-btn { position: relative; }
+
+/* ========== MC-500 (MkI) theme ========== */
+.mk1-unit {
+    background: linear-gradient(180deg, #dcd8cd 0%, #cfcabe 60%, #c4bfb2 100%);
+    border: 1px solid #a8a396;
+    color: #3a372f;
+}
+
+.mk1-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+    border-bottom: 2px solid #b3ada0;
+}
+
+.mk1-brand {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+    white-space: nowrap;
+}
+.mk1-roland {
+    font-size: 26px;
+    font-weight: bold;
+    color: #2b2822;
+    letter-spacing: 2px;
+}
+.mk1-model {
+    font-size: 30px;
+    font-weight: 900;
+    color: #2b2822;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+.mk1-sub {
+    font-size: 9px;
+    color: #55503f;
+    letter-spacing: 3px;
+}
+
+.mk1-display-block .lcd-module {
+    background: #141414;
+    padding: 10px 14px 6px;
+}
+.mk1-lcd-labels {
+    display: flex;
+    justify-content: space-between;
+    background: #141414;
+    border-radius: 0 0 6px 6px;
+    margin-top: -4px;
+    padding: 2px 18px 6px;
+}
+.mk1-lcd-labels span {
+    font-size: 7px;
+    color: #b5b0a2;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.mk1-drive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px;
+    background: #cac5b8;
+    border-radius: 6px;
+    border: 1px solid #aaa596;
+}
+.mk1-drive .drive-slot { background: #55503f; }
+.mk1-drive .drive-label { color: #55503f; }
+
+.mk1-panel {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    padding-top: 6px;
+}
+
+/* Left block: track row + transport */
+.mk1-left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mk1-track-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    position: relative;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #b3ada0;
+}
+.mk1-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+.mk1-track-btn {
+    width: 26px;
+    height: 22px;
+    background: linear-gradient(180deg, #f2efe7 0%, #ddd8cc 100%);
+    border: 1px solid #948f80;
+}
+.mk1-track-btn:hover { background: #f7f4ec; }
+.mk1-track-label {
+    font-size: 8px;
+    color: #55503f;
+    letter-spacing: 1px;
+}
+.mk1-track-caption {
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 7px;
+    letter-spacing: 6px;
+    color: #6b6552;
+}
+
+.mk1-transport {
+    display: flex;
+    gap: 8px;
+}
+.mk1-tbtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+.mk1-led-slot {
+    height: 8px;
+    display: flex;
+    align-items: center;
+}
+.mk1-transport-btn {
+    width: 58px;
+    height: 34px;
+    font-size: 13px;
+    background: linear-gradient(180deg, #b6b1a3 0%, #9d977f 60%, #8e8873 100%);
+    border: 1px solid #6b6552;
+    color: #2b2822;
+}
+.mk1-transport-btn:hover { background: #c2bdaf; }
+.mk1-wide-btn { width: 124px; }
+.mk1-tlabel {
+    font-size: 8px;
+    color: #55503f;
+    letter-spacing: 1px;
+}
+
+/* Center: beat + dial + arrows */
+.mk1-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding-top: 2px;
+}
+.mk1-beat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    align-self: flex-start;
+}
+.mk1-beat-label {
+    font-size: 8px;
+    color: #55503f;
+    letter-spacing: 1px;
+}
+.mk1-unit .dial-outer {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(145deg, #cac5b8, #a8a396);
+}
+.mk1-unit .dial-inner {
+    background: radial-gradient(circle at 35% 30%, #f4f1e9, #d5d0c3 70%, #c2bdaf);
+}
+.mk1-unit .dial-marker {
+    background: #8e8873;
+    box-shadow: none;
+    top: 10px;
+}
+.mk1-dial-label {
+    font-size: 9px;
+    color: #55503f;
+    letter-spacing: 2px;
+}
+.mk1-arrows {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+/* Function block */
+.mk1-func {
+    display: grid;
+    grid-template-columns: repeat(2, 64px);
+    gap: 8px;
+    padding-top: 12px;
+}
+.mk1-func-btn {
+    height: 40px;
+    font-size: 10px;
+    line-height: 1.2;
+    background: linear-gradient(180deg, #a09a88 0%, #8e8873 60%, #7f7963 100%);
+    border: 1px solid #625d4b;
+    color: #f4f1e9;
+}
+.mk1-func-btn:hover { background: #aca696; }
+.mk1-shift-btn {
+    grid-column: span 2;
+    height: 34px;
+}
+
+/* Numeric keypad */
+.mk1-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 64px);
+    gap: 8px;
+    padding-top: 12px;
+}
+.mk1-num-btn {
+    height: 44px;
+    font-size: 16px;
+    background: linear-gradient(180deg, #f2efe7 0%, #ddd8cc 100%);
+    border: 1px solid #948f80;
+    color: #2b2822;
+    position: relative;
+}
+.mk1-num-btn:hover { background: #f7f4ec; }
+.mk1-num-btn sub {
+    position: absolute;
+    right: 7px;
+    bottom: 6px;
+    font-size: 9px;
+    color: #6b6552;
+}
+.mk1-enter-btn {
+    grid-column: span 2;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* MkI pressed state keeps the light key face */
+.mk1-unit .panel-btn:active,
+.mk1-unit .panel-btn.active {
+    filter: brightness(0.85);
+    background: inherit;
+}

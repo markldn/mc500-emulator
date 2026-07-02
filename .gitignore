@@ -1,0 +1,21 @@
+# Only the emulator app is published; everything else in this working
+# directory (research scans, manuals, logs, scratch scripts) stays local.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/run.sh
+!/emulator
+
+# local-only inside emulator/
+emulator/node_modules/
+emulator/attic/
+emulator/.DS_Store
+.DS_Store
+
+# Roland ROM / disk images are copyrighted — never commit them
+emulator/roms/*
+!emulator/roms/README.md
+emulator/disks/*
+!emulator/disks/README.md
+emulator/package-lock.json

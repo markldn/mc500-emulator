@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roland MC-500 Emulator</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+<body>
+    <div id="loading-indicator" style="background:#333;color:#0f0;padding:10px;text-align:center;font-family:monospace;">
+        Loading MC-500 Emulator...
+    </div>
+    <div class="emulator-container">
+
+        <!-- ================= MC-500 (MkI) panel ================= -->
+        <div class="mc500-unit mk1-unit" id="panel-mk1" hidden>
+            <div class="mk1-top">
+                <div class="mk1-brand">
+                    <span class="mk1-roland">Roland</span>
+                    <span class="mk1-model">MC-500</span>
+                    <span class="mk1-sub">MICRO COMPOSER</span>
+                </div>
+                <div class="mk1-display-block">
+                    <div class="lcd-module">
+                        <div class="lcd-bezel">
+                            <div class="lcd-screen">
+                                <div class="lcd-line lcd-line-1">Roland MC-500</div>
+                                <div class="lcd-line lcd-line-2">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mk1-lcd-labels">
+                        <span>MIDI<br>CHANNEL</span><span>NOTE/<br>STATUS</span><span>VELOCITY</span><span>GATE TIME</span>
+                    </div>
+                </div>
+                <div class="mk1-drive">
+                    <div class="drive-slot"></div>
+                    <div class="drive-label">3.5" DISK</div>
+                    <div class="drive-led" id="drive-led"></div>
+                </div>
+            </div>
+
+            <div class="mk1-panel">
+                <!-- Left: track select + transport -->
+                <div class="mk1-left">
+                    <div class="mk1-track-row">
+                        <div class="mk1-track">
+                            <span class="led mk1-led led-rhythm"></span>
+                            <button class="panel-btn mk1-track-btn" data-key="rhythm"></button>
+                            <span class="mk1-track-label">RHYTHM</span>
+                        </div>
+                        <div class="mk1-track">
+                            <span class="led mk1-led led-track1"></span>
+                            <button class="panel-btn mk1-track-btn" data-key="track1"></button>
+                            <span class="mk1-track-label">1</span>
+                        </div>
+                        <div class="mk1-track">
+                            <span class="led mk1-led led-track2"></span>
+                            <button class="panel-btn mk1-track-btn" data-key="track2"></button>
+                            <span class="mk1-track-label">2</span>
+                        </div>
+                        <div class="mk1-track">
+                            <span class="led mk1-led led-track3"></span>
+                            <button class="panel-btn mk1-track-btn" data-key="track3"></button>
+                            <span class="mk1-track-label">3</span>
+                        </div>
+                        <div class="mk1-track">
+                            <span class="led mk1-led led-track4"></span>
+                            <button class="panel-btn mk1-track-btn" data-key="track4"></button>
+                            <span class="mk1-track-label">4</span>
+                        </div>
+                        <div class="mk1-track-caption">TRACK</div>
+                    </div>
+                    <div class="mk1-transport">
+                        <div class="mk1-tbtn">
+                            <span class="mk1-led-slot"></span>
+                            <button class="panel-btn mk1-transport-btn" data-key="reset">⏮</button>
+                            <span class="mk1-tlabel">RESET</span>
+                        </div>
+                        <div class="mk1-tbtn">
+                            <span class="mk1-led-slot"></span>
+                            <button class="panel-btn mk1-transport-btn" data-key="skip">⏭</button>
+                            <span class="mk1-tlabel">SKIP</span>
+                        </div>
+                        <div class="mk1-tbtn">
+                            <span class="mk1-led-slot"><span class="led mk1-led led-rec"></span></span>
+                            <button class="panel-btn mk1-transport-btn" data-key="rec">●</button>
+                            <span class="mk1-tlabel">REC/LOAD</span>
+                        </div>
+                        <div class="mk1-tbtn">
+                            <span class="mk1-led-slot"><span class="led mk1-led led-pause"></span></span>
+                            <button class="panel-btn mk1-transport-btn" data-key="pause">⏸</button>
+                            <span class="mk1-tlabel">PAUSE</span>
+                        </div>
+                    </div>
+                    <div class="mk1-transport mk1-transport-wide">
+                        <div class="mk1-tbtn mk1-tbtn-wide">
+                            <span class="mk1-led-slot"></span>
+                            <button class="panel-btn mk1-transport-btn mk1-wide-btn" data-key="stop">■</button>
+                            <span class="mk1-tlabel">STOP</span>
+                        </div>
+                        <div class="mk1-tbtn mk1-tbtn-wide">
+                            <span class="mk1-led-slot"><span class="led mk1-led led-play"></span></span>
+                            <button class="panel-btn mk1-transport-btn mk1-wide-btn" data-key="play">▶</button>
+                            <span class="mk1-tlabel">PLAY/SAVE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center: beat LED, alpha dial, TIE/REST -->
+                <div class="mk1-center">
+                    <div class="mk1-beat"><span class="led mk1-led led-beat"></span><span class="mk1-beat-label">BEAT</span></div>
+                    <div class="alpha-dial">
+                        <div class="dial-outer">
+                            <div class="dial-inner">
+                                <div class="dial-marker"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mk1-dial-label">α-DIAL</div>
+                    <div class="mk1-arrows">
+                        <div class="mk1-tbtn">
+                            <button class="panel-btn mk1-transport-btn" data-key="left">←</button>
+                            <span class="mk1-tlabel">TIE</span>
+                        </div>
+                        <div class="mk1-tbtn">
+                            <button class="panel-btn mk1-transport-btn" data-key="right">→</button>
+                            <span class="mk1-tlabel">REST</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Function block -->
+                <div class="mk1-func">
+                    <button class="panel-btn mk1-func-btn" data-key="midi">MIDI</button>
+                    <button class="panel-btn mk1-func-btn" data-key="edit">EDIT</button>
+                    <button class="panel-btn mk1-func-btn" data-key="func">FUNC</button>
+                    <button class="panel-btn mk1-func-btn" data-key="micro">MICRO<br>SCOPE</button>
+                    <button class="panel-btn mk1-func-btn" data-key="mode">MODE</button>
+                    <button class="panel-btn mk1-func-btn" data-key="avail">AVAIL<br>MEMO</button>
+                    <button class="panel-btn mk1-func-btn mk1-shift-btn" data-key="shift">SHIFT</button>
+                </div>
+
+                <!-- Numeric keypad -->
+                <div class="mk1-keypad">
+                    <button class="panel-btn mk1-num-btn" data-key="7">7<sub>♭</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="8">8<sub>♯</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="9">9</button>
+                    <button class="panel-btn mk1-num-btn" data-key="4">4<sub>E</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="5">5<sub>F</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="6">6<sub>G</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="1">1<sub>B</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="2">2<sub>C</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="3">3<sub>D</sub></button>
+                    <button class="panel-btn mk1-num-btn" data-key="0">0<sub>A</sub></button>
+                    <button class="panel-btn mk1-num-btn mk1-enter-btn" data-key="enter">ENTER</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MC-500 MkII panel ================= -->
+        <div class="mc500-unit" id="panel-mk2" hidden>
+            <div class="top-section">
+                <div class="brand-section">
+                    <div class="roland-logo">Roland</div>
+                    <div class="model-info">
+                        <span class="model-type">MICRO COMPOSER</span>
+                        <span class="model-name">MC-500 MkII</span>
+                    </div>
+                </div>
+
+                <div class="display-area">
+                    <div class="lcd-module">
+                        <div class="lcd-bezel">
+                            <div class="lcd-screen">
+                                <div class="lcd-line lcd-line-1">Roland MC-500</div>
+                                <div class="lcd-line lcd-line-2">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="led-section">
+                        <div class="led-indicator">
+                            <div class="led led-red led-rec"></div>
+                            <span>REC</span>
+                        </div>
+                        <div class="led-indicator">
+                            <div class="led led-yellow led-play"></div>
+                            <span>PLAY</span>
+                        </div>
+                        <div class="led-indicator">
+                            <div class="led led-green led-beat"></div>
+                            <span>BEAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Control Panel -->
+            <div class="control-surface">
+                <!-- Left Side: Track Select -->
+                <div class="track-section">
+                    <div class="section-label">TRACK SELECT</div>
+                    <div class="track-buttons">
+                        <button class="panel-btn track-btn" data-key="track1">
+                            <span class="led mk2-track-led led-track1"></span>
+                            <span class="btn-number">1</span>
+                        </button>
+                        <button class="panel-btn track-btn" data-key="track2">
+                            <span class="led mk2-track-led led-track2"></span>
+                            <span class="btn-number">2</span>
+                        </button>
+                        <button class="panel-btn track-btn" data-key="track3">
+                            <span class="led mk2-track-led led-track3"></span>
+                            <span class="btn-number">3</span>
+                        </button>
+                        <button class="panel-btn track-btn" data-key="track4">
+                            <span class="led mk2-track-led led-track4"></span>
+                            <span class="btn-number">4</span>
+                        </button>
+                        <button class="panel-btn track-btn rhythm-btn" data-key="rhythm">
+                            <span class="led mk2-track-led led-rhythm"></span>
+                            <span class="btn-label">RHYTHM</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Center: Transport and Function -->
+                <div class="center-section">
+                    <!-- Transport Controls -->
+                    <div class="transport-section">
+                        <div class="section-label">TRANSPORT</div>
+                        <div class="transport-buttons">
+                            <button class="panel-btn transport-btn" data-key="reset">
+                                <span class="btn-icon">⏮</span>
+                                <span class="btn-label">RESET</span>
+                            </button>
+                            <button class="panel-btn transport-btn" data-key="skip">
+                                <span class="btn-icon">⏭</span>
+                                <span class="btn-label">SKIP</span>
+                            </button>
+                            <button class="panel-btn transport-btn rec-btn" data-key="rec">
+                                <span class="btn-icon">●</span>
+                                <span class="btn-label">REC/LOAD</span>
+                            </button>
+                            <button class="panel-btn transport-btn" data-key="pause">
+                                <span class="btn-icon">⏸</span>
+                                <span class="btn-label">PAUSE</span>
+                            </button>
+                            <button class="panel-btn transport-btn" data-key="stop">
+                                <span class="btn-icon">■</span>
+                                <span class="btn-label">STOP</span>
+                            </button>
+                            <button class="panel-btn transport-btn play-btn" data-key="play">
+                                <span class="btn-icon">▶</span>
+                                <span class="btn-label">PLAY/SAVE</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Function Buttons -->
+                    <div class="function-section">
+                        <div class="section-label">FUNCTION</div>
+                        <div class="function-buttons">
+                            <button class="panel-btn func-btn" data-key="midi">MIDI/UTIL</button>
+                            <button class="panel-btn func-btn" data-key="edit">EDIT</button>
+                            <button class="panel-btn func-btn" data-key="func">FUNC</button>
+                            <button class="panel-btn func-btn" data-key="micro">MICRO EDIT</button>
+                            <button class="panel-btn func-btn" data-key="loc">LOC/MODE</button>
+                            <button class="panel-btn func-btn" data-key="cancel">CANCEL</button>
+                            <button class="panel-btn func-btn shift-btn" data-key="shift">SHIFT</button>
+                        </div>
+                    </div>
+
+                    <!-- Cursor/Arrow Buttons -->
+                    <div class="cursor-section">
+                        <div class="section-label">CURSOR</div>
+                        <div class="cursor-buttons">
+                            <button class="panel-btn cursor-btn" data-key="left">◀</button>
+                            <button class="panel-btn cursor-btn" data-key="right">▶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Numeric Keypad and Dial -->
+                <div class="right-section">
+                    <!-- Numeric Keypad -->
+                    <div class="keypad-section">
+                        <div class="section-label">NUMERIC</div>
+                        <div class="keypad-grid">
+                            <button class="panel-btn num-btn" data-key="7">7</button>
+                            <button class="panel-btn num-btn" data-key="8">8</button>
+                            <button class="panel-btn num-btn" data-key="9">9</button>
+                            <button class="panel-btn num-btn" data-key="4">4</button>
+                            <button class="panel-btn num-btn" data-key="5">5</button>
+                            <button class="panel-btn num-btn" data-key="6">6</button>
+                            <button class="panel-btn num-btn" data-key="1">1</button>
+                            <button class="panel-btn num-btn" data-key="2">2</button>
+                            <button class="panel-btn num-btn" data-key="3">3</button>
+                            <button class="panel-btn num-btn zero-btn" data-key="0">0</button>
+                            <button class="panel-btn enter-btn" data-key="enter">ENTER</button>
+                        </div>
+                    </div>
+
+                    <!-- Alpha Dial -->
+                    <div class="dial-section">
+                        <div class="section-label">α-DIAL</div>
+                        <div class="alpha-dial">
+                            <div class="dial-outer">
+                                <div class="dial-inner">
+                                    <div class="dial-marker"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dial-labels">
+                            <span>−</span>
+                            <span>+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom: Disk Drive Indicator -->
+            <div class="bottom-section">
+                <div class="disk-drive">
+                    <div class="drive-slot"></div>
+                    <div class="drive-label">3.5" DISK</div>
+                    <div class="drive-led"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side Control Panel -->
+        <div class="side-panel">
+            <h3>Emulator Controls</h3>
+
+            <div class="config-section">
+                <div class="config-group">
+                    <label>Theme:</label>
+                    <select id="theme-select">
+                        <option value="mk1">MC-500</option>
+                        <option value="mk2">MC-500 MkII</option>
+                    </select>
+                </div>
+                <div class="config-group">
+                    <label>ROM:</label>
+                    <select id="rom-select">
+                        <!-- MC-500 v2.2 is recommended as it properly configures MMU and progresses further -->
+                        <option value="MC-500II-v1.0.4.bin">MC-500 MkII v1.0.4</option>
+                        <option value="MC-500-v2.3.bin">MC-500 v2.3</option>
+                        <option value="MC-500-v2.2.bin" selected>MC-500 v2.2 (Recommended)</option>
+                    </select>
+                </div>
+                <div class="config-group">
+                    <label>System Disk:</label>
+                    <select id="disk-select">
+                        <option value="MRC-500-v110.dsk" selected>MRC-500 v1.10</option>
+                        <option value="Super-MRC-v2.dsk">Super-MRC v2</option>
+                        <option value="MRC-300-v1.dsk">MRC-300 v1.0</option>
+                        <option value="MRB-500.dsk">MRB-500 Bulk</option>
+                        <option value="MRP-500.dsk">MRP-500 Performance</option>
+                    </select>
+                </div>
+                <div class="config-group">
+                    <label>MIDI In:</label>
+                    <select id="midi-in"><option value="">(none)</option></select>
+                </div>
+                <div class="config-group">
+                    <label>MIDI Out 1:</label>
+                    <select id="midi-out1"><option value="">(none)</option></select>
+                </div>
+                <div class="config-group">
+                    <label>MIDI Out 2:</label>
+                    <select id="midi-out2"><option value="">(none)</option></select>
+                </div>
+            </div>
+
+            <div class="emu-controls">
+                <button id="btn-load" class="emu-btn">Reload</button>
+                <button id="btn-start" class="emu-btn emu-btn-start" disabled>Start</button>
+                <button id="btn-stop" class="emu-btn emu-btn-stop" disabled>Stop</button>
+                <button id="btn-reset" class="emu-btn" disabled>Reset</button>
+            </div>
+
+            <div class="emu-controls">
+                <button id="btn-disk-download" class="emu-btn" title="Download the current floppy image, including anything saved in Mode 2">Download .dsk</button>
+                <button id="btn-disk-insert" class="emu-btn" title="Insert a previously downloaded .dsk image">Insert .dsk…</button>
+                <input type="file" id="disk-file" accept=".dsk,application/octet-stream" hidden>
+            </div>
+
+            <div class="status-display">
+                <div class="status-row">
+                    <span class="status-label">Status:</span>
+                    <span class="status-value" id="cpu-status">Loading...</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-label">PC:</span>
+                    <span class="status-value mono" id="pc-value">0000</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-label">Cycles:</span>
+                    <span class="status-value mono" id="cycle-count">0</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-label">FDC:</span>
+                    <span class="status-value" id="fdc-status">Idle</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-label">MIDI:</span>
+                    <span class="status-value mono" id="midi-status">in 0 / out 0</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-label">Disk:</span>
+                    <span class="status-value" id="disk-status">unchanged</span>
+                </div>
+            </div>
+
+            <div class="debug-section">
+                <h4>Debug Log</h4>
+                <div class="debug-log" id="debug-log"></div>
+            </div>
+
+            <div class="keyboard-help">
+                <h4>Keyboard Shortcuts</h4>
+                <div class="shortcut">Space = Play</div>
+                <div class="shortcut">Esc = Stop</div>
+                <div class="shortcut">Backspace = Reset</div>
+                <div class="shortcut">Enter = Enter</div>
+                <div class="shortcut">0-9 = Numeric</div>
+                <div class="shortcut">←/→ = Cursor</div>
+                <div class="shortcut">↑/↓ = α-Dial</div>
+                <div class="shortcut">Mouse wheel on dial = turn</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Error handler to display any JavaScript errors
+        window.onerror = function(msg, url, line, col, error) {
+            const errDiv = document.createElement('div');
+            errDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#f00;color:#fff;padding:20px;z-index:9999;font-family:monospace;';
+            errDiv.innerHTML = '<strong>JavaScript Error:</strong><br>' + msg + '<br>at ' + url + ':' + line;
+            document.body.appendChild(errDiv);
+            return false;
+        };
+    </script>
+    <script type="module" src="js/main-hd64180.js?v=2"></script>
+    <noscript>
+        <div style="background:#f00;color:#fff;padding:20px;text-align:center;">
+            JavaScript is disabled. Please enable JavaScript to use the MC-500 Emulator.
+        </div>
+    </noscript>
+</body>
+</html>

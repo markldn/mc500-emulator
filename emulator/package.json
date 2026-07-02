@@ -1,0 +1,25 @@
+{
+  "name": "mc500-emulator",
+  "version": "1.0.0",
+  "description": "Web-based Roland MC-500 / MC-500 MkII MicroComposer emulator",
+  "type": "module",
+  "scripts": {
+    "serve": "python3 serve.py",
+    "test": "node dial-test.mjs && node disk-test.mjs",
+    "test:browser": "node browser-test.mjs"
+  },
+  "keywords": [
+    "emulator",
+    "roland",
+    "mc-500",
+    "midi",
+    "sequencer",
+    "z180",
+    "hd64180"
+  ],
+  "author": "Mark Langendoen",
+  "license": "MIT",
+  "devDependencies": {
+    "puppeteer": "^24.34.0"
+  }
+}
