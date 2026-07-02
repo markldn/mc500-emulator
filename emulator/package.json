@@ -17,7 +17,7 @@
     "z180",
     "hd64180"
   ],
-  "author": "Mark Langendoen",
+  "author": "markldn",
   "license": "MIT",
   "devDependencies": {
     "puppeteer": "^24.34.0"
