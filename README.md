@@ -46,6 +46,11 @@ filenames.
 # open http://localhost:8500
 ```
 
+**Live demo:** https://markldn.github.io/mc500-emulator/ — the page can't ship
+the ROMs, so click **Load ROM…** and pick your own 8 KB boot ROM dump (and
+**Insert .dsk…** for a system disk). Nothing is uploaded anywhere; the files
+stay in your browser.
+
 The emulator auto-loads the MC-500 v2.2 ROM + MRC-500 v1.10 disk and boots to
 the `SONG 1` standby screen in a few seconds.
 

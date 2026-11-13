@@ -107,6 +107,8 @@ class EmulatorUI {
         // Track firmware writes to the floppy image (Mode 2 SAVE etc.)
         this.diskDirty = false;
         this.mc.fdc.onDiskWrite = () => { this.diskDirty = true; };
+        // ROM bytes picked by the user ("Load ROM…"); null means fetch from roms/
+        this.romBytes = null;
 
         this.setupUIHandlers();
         this.setupTheme();
@@ -250,6 +252,22 @@ class EmulatorUI {
             this.log('info', `Inserted ${file.name} — use MODE 2 to load songs from it`);
         });
 
+        const romInput = document.getElementById('rom-file');
+        document.getElementById('btn-rom-insert')?.addEventListener('click', () => romInput?.click());
+        romInput?.addEventListener('change', async () => {
+            const file = romInput.files?.[0];
+            romInput.value = '';
+            if (!file) return;
+            const bytes = new Uint8Array(await file.arrayBuffer());
+            if (bytes.length < 0x2000) {
+                this.log('error', `${file.name}: expected an 8 KB boot ROM dump, got ${bytes.length} bytes`);
+                return;
+            }
+            this.romBytes = bytes;
+            this.log('info', `Using ROM ${file.name}`);
+            await this.loadFiles();
+        });
+
         // Don't lose an unsaved disk image on accidental close/refresh
         window.addEventListener('beforeunload', (e) => {
             if (this.diskDirty) { e.preventDefault(); e.returnValue = ''; }
@@ -339,15 +357,25 @@ class EmulatorUI {
         const diskFile = document.getElementById('disk-select').value;
 
         try {
-            const romResp = await fetch(`roms/${romFile}`);
-            if (!romResp.ok) throw new Error(`ROM ${romFile} not found (${romResp.status})`);
-            this.mc.loadROM(new Uint8Array(await romResp.arrayBuffer()));
+            let rom = this.romBytes;
+            if (!rom) {
+                const romResp = await fetch(`roms/${romFile}`);
+                if (!romResp.ok) {
+                    this.log('error', `ROM ${romFile} not found (${romResp.status}). Use "Load ROM…" to pick your own dump.`);
+                    this.ui.cpuStatus.textContent = 'Load failed';
+                    return;
+                }
+                rom = new Uint8Array(await romResp.arrayBuffer());
+            }
+            this.mc.loadROM(rom);
 
             const diskResp = await fetch(`disks/${diskFile}`);
-            if (!diskResp.ok) throw new Error(`Disk ${diskFile} not found (${diskResp.status})`);
-            this.mc.insertDisk(new Uint8Array(await diskResp.arrayBuffer()));
-
-            this.log('info', `Loaded ${romFile} + ${diskFile}`);
+            if (diskResp.ok) {
+                this.mc.insertDisk(new Uint8Array(await diskResp.arrayBuffer()));
+                this.log('info', `Loaded ${romFile} + ${diskFile}`);
+            } else {
+                this.log('warn', `Disk ${diskFile} not found (${diskResp.status}). Use "Insert .dsk…" to insert one.`);
+            }
             document.getElementById('btn-start').disabled = false;
             document.getElementById('btn-reset').disabled = false;
             this.ui.cpuStatus.textContent = 'Ready';
