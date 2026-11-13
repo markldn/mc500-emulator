@@ -6,6 +6,8 @@
 !/LICENSE
 !/run.sh
 !/emulator
+!/index.html
+!/.nojekyll
 
 # local-only inside emulator/
 emulator/node_modules/
